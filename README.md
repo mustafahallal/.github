@@ -5,99 +5,50 @@ Burası yaratıcılığın kodla buluştuğu yer. **mustafahallal** çatısı al
 
 ---
 
-[![Build Status](https://img.shields.io/github/actions/workflow/status/mustafahallal/REPO-NAME/ci.yml?branch=main&style=flat-square)](https://github.com/mustafahallal)
-[![License](https://img.shields.io/github/license/mustafahallal/REPO-NAME?style=flat-square)](LICENSE)
-[![Issues](https://img.shields.io/github/issues/mustafahallal/REPO-NAME?style=flat-square)](https://github.com/mustafahallal/REPO-NAME/issues)
-
----
-
 ## 📊 Organizasyon Genel Bakış
 
-Aşağıdaki istatistikler organizasyonumuzun genel sağlığını gösterir.
+Aşağıda organizasyon aktivitelerini gösteren görsel yer alır. (Görsel .github/workflows/metrics.yml tarafından üretilir.)
 
-| 🌟 Toplam Yıldız | 🍴 Fork Sayısı | 📂 Proje Sayısı |
-| :---: | :---: | :---: |
-| ![Stars](https://img.shields.io/github/stars/mustafahallal?style=flat-square&color=gold) | ![Forks](https://img.shields.io/github/forks/mustafahallal?style=flat-square&color=blue) | ![Repos](https://img.shields.io/github/repos/mustafahallal?style=flat-square&color=success) |
+![Organization Metrics](https://raw.githubusercontent.com/mustafahallal/.github/main/github-metrics.svg)
 
----
-
-## 📅 Katkı Takvimi (Commit Aktivitesi)
-
-Organizasyonumuzdaki geliştiricilerin son bir yıldaki çalışma yoğunluğu:
-
-![Contribution Graph](https://raw.githubusercontent.com/mustafahallal/.github/main/github-metrics.svg)
-
-> Not: Eğer görsel görünmüyorsa, `.github/workflows/metrics.yml` workflow'unun çalışıp github-metrics.svg dosyasını ürettiğinden emin olun.
+> Not: Organizasyondaki birçok repo `private` görünüyor. Eğer metrics görselinde özel repo istatistiklerini görmek istiyorsan:
+> - METRICS_TOKEN secret'ına repo (ve gerekiyorsa read:org) izinleri ver.
+> - Private repoların verisini almak için token `repo` scope içermelidir. Public-only veriler için `public_repo` + `read:org` da çalışabilir ama private için `repo` gerekir.
 
 ---
 
 ## 🚀 Neler Yapıyoruz?
-
-- 🛠️ Yazılım Mimarileri: Ölçeklenebilir ve temiz kod yapıları
-- 🌐 Web Teknolojileri: Modern frontend ve backend çözümleri
+- 🛠️ Yazılım Mimarileri: Ölçeklenebilir ve temiz kod yapıları  
+- 🌐 Web Teknolojileri: Modern frontend ve backend çözümleri  
 - 📱 Mobil Deneyimler: Kullanıcı odaklı uygulama geliştirme
 
 ---
 
-## 🛠️ Kullandığımız Teknolojiler
-
-<p align="left">
-  <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=js,ts,react,nextjs,nodejs,python,go,docker,aws,git,github,vscode,linux" />
-  </a>
-</p>
+## ✨ Katkıda Bulunma (Hızlı Rehber)
+1. İlgilendiğiniz bir issue seçin.  
+2. Repo'yu fork'layın.  
+3. Yeni bir branch oluşturun (örn. `feature/my-feature`).  
+4. Değişikliklerinizi test edip PR açın.
 
 ---
 
-## 📥 Kurulum (Genel Rehber)
-
-Bu organizasyondaki projelerin dili farklılık gösterebilir; örnek olarak Node.js projeleri için:
-
-1. Repo'yu klonlayın:
-   ```bash
-   git clone https://github.com/mustafahallal/REPO-NAME.git
-   ```
-2. Dizine girin:
-   ```bash
-   cd REPO-NAME
-   ```
-3. Bağımlılıkları kurun:
-   ```bash
-   npm ci
-   ```
-4. Ortam değişkenlerini ayarlayın (`.env.example` varsa kopyalayın).
+## 🔐 METRICS için Gerekenler & Güvenlik
+- Repository veya Organization secrets içinde `METRICS_TOKEN` oluştur:
+  - Eğer organizasyon private repoları dahil etmek istiyorsa PAT (Personal Access Token) oluştururken `repo` scope ekle.
+  - Organizasyon meta verilerine erişim gerekiyorsa `read:org` eklenmeli.
+- Güvenlik önerisi: action'ları `@latest` ile değil tag/sha ile pin'le (biz örnekte v3.34.0 kullandık).
+- Eğer SVG görünmüyor veya hata mesajı alıyorsan Actions log'unu kontrol et; özellikle log'da "Unsupported context organization" hatası varsa `plugin_isocalendar` kapalı mı diye bak.
 
 ---
 
-## ✨ Katkıda Bulunma
-
-Katkı vermek isterseniz:
-
-1. Bir issue açın veya mevcut issue’lardan birini seçin.
-2. Repo’yu fork’layın.
-3. Yeni bir branch oluşturun (örn. `feature/my-feature`).
-4. Değişikliklerinizi yapın, test edin ve PR gönderin.
-
-Konvansiyonel commit mesajları ve PR açıklamaları kullanmak çalışma akışımızı hızlandırır.
+## Repos (kısa)
+Organizasyondaki repoların bir kısmı private olduğundan, herkese açık badge/istatistikler doğrudan görünmeyebilir. Örnek repo listeni göz önüne alarak (örn: news, newCrmBackend, ret, Financio, trors, server, temp, Router, ServerMain, status vs.):
+- Metrics görseli token izinleriyle birlikte private repoları da çekebilecektir.
+- README içerisindeki repo-spesifik badge'leri kullanmak istiyorsan her badge için hedef repo adını doğru gir (ör. `mustafahallal/news`). Private repo badge'leri public olarak erişilemez.
 
 ---
 
-## 🔐 Metrics Workflow için Gerekenler
-
-- Workflow `.github/workflows/metrics.yml` repoya svg yazıyor. Bu sebeple:
-  - Secrets → METRICS_TOKEN adı altında bir token ekleyin.
-  - Eğer repolarınız public ise `public_repo` scope yeterli olabilir; ancak organizasyon bilgisine erişim gerekiyorsa `read:org` eklenmelidir.
-  - Private repolar için PAT üzerinde `repo` scope gereklidir.
-- Güvenlik tavsiyesi: action'lar `@latest` yerine tag/sha ile pin’lenmelidir.
-
----
-
-## 📝 Lisans
-Bu organizasyonun projelerindeki lisanslar proje bazlıdır; ana lisans bilgisi için her projenin LICENSE dosyasına bakın.
-
----
-
-## 📫 İletişim
+## İletişim
 Bakımcı: @mustafahallal  
-E-posta: (buraya iletişim bilgisi ekleyin)
+E-posta: (buraya iletişim bilgisi ekle)
 ```

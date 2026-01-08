@@ -4,16 +4,8 @@ Burası yaratıcılığın kodla buluştuğu yer. **mustafahallal** çatısı al
 
 ---
 
-### 🚀 Neler Yapıyoruz?
-Şu an odağımızda şunlar var:
-- 🛠️ **Yazılım Mimarileri:** Ölçeklenebilir ve temiz kod yapıları.
-- 🌐 **Web Teknolojileri:** Modern frontend ve backend çözümleri.
-- 📱 **Mobil Deneyimler:** Kullanıcı odaklı uygulama geliştirme.
-
----
-
-### 📊 Organizasyon İstatistikleri
-Bu bölüm, organizasyonun genel sağlığını ve aktifliğini gösterir.
+### 📊 Organizasyon Genel Bakış
+Bu bölüm, organizasyonumuzun genel sağlığını ve etkileşimini gerçek zamanlı olarak gösterir.
 
 | 🌟 Toplam Yıldız | 🍴 Fork Sayısı | 📂 Proje Sayısı |
 | :--- | :--- | :--- |
@@ -21,27 +13,34 @@ Bu bölüm, organizasyonun genel sağlığını ve aktifliğini gösterir.
 
 ---
 
-### 🔥 Son Aktiviteler & Commitler
-*Burada neler olup bittiğini canlı görmek için [GitHub Metrics](https://metrics.lecoq.io/) kullanmanı öneririm. Aşağıdaki görsel otomatik olarak son commitleri ve aktiviteleri çekecektir:*
+### 📅 Katkı Takvimi (Commit Aktivitesi)
+*Organizasyonumuzdaki tüm geliştiricilerin son bir yıldaki çalışma yoğunluğu:*
 
-![GitHub Metrics](https://metrics.lecoq.io/mustafahallal?template=classic&activity=10&community=1&repositories=1&metadata=1)
+![Contribution Graph](https://github.com/mustafahallal/.github/blob/main/github-metrics.svg)
 
-> **Not:** Bu görselin çalışması için bir GitHub Action kurman gerekir. (Aşağıda detaylandırdım).
+---
+
+### 🚀 Neler Yapıyoruz?
+Şu an odağımızda şunlar var:
+* 🛠️ **Yazılım Mimarileri:** Ölçeklenebilir ve temiz kod yapıları.
+* 🌐 **Web Teknolojileri:** Modern frontend ve backend çözümleri.
+* 📱 **Mobil Deneyimler:** Kullanıcı odaklı uygulama geliştirme.
 
 ---
 
 ### 🛠️ Kullandığımız Teknolojiler
 <p align="left">
-  <img src="https://skillicons.dev/icons?i=js,ts,react,nextjs,nodejs,python,go,docker,aws,git,github" />
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=js,ts,react,nextjs,nodejs,python,go,docker,aws,git,github,vscode,linux" />
+  </a>
 </p>
 
 ---
-![Katkı Takvimi](https://github.com/mustafahallal/.github/blob/main/github-metrics.svg)
 
 ### 🤝 Katkıda Bulunmak İster Misiniz?
-Organizasyonumuzdaki projelerin çoğu açık kaynaklıdır. 
-1. Bir issue seçin.
-2. Fork'layın.
-3. PR (Pull Request) gönderin!
+Organizasyonumuzdaki projelerin çoğu açık kaynaklıdır. Katılmak için:
+1.  İlgilendiğiniz bir **Issue** seçin.
+2.  Projeyi **Fork**'layın.
+3.  Değişikliklerinizi yapıp **PR (Pull Request)** gönderin!
 
 📫 **İletişim:** [E-posta Adresin veya Web Siten]

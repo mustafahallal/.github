@@ -1,33 +1,43 @@
 name: Metrics
+
 on:
-  # Her gece yarısı otomatik güncelleme
-  schedule: [{cron: "0 0 * * *"}]
-  # El ile (manuel) tetikleme izni
+  schedule:
+    - cron: '0 0 * * *' # Her gece yarısı
   workflow_dispatch:
+
+concurrency:
+  group: metrics-${{ github.repository }}
+  cancel-in-progress: true
+
+# Top-level permission: oluşturulan görseli repoya yazmak için gerekli
+permissions:
+  contents: write
+  actions: read
+
 jobs:
   github-metrics:
+    name: Generate organization metrics
     runs-on: ubuntu-latest
-    # Bu kısım, oluşturulan görseli depoya geri yazabilmek için şarttır:
-    permissions:
-      contents: write
     steps:
-      - name: 📊 Organizasyon Aktivite Grafiği Oluştur
-        uses: lowlighter/metrics@latest
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
-          # GitHub Secrets'a eklediğin token adı
+          fetch-depth: 0
+
+      - name: Generate metrics SVG
+        # PIN the action to a stable tag or SHA for reproducibility.
+        # Replace `@v1` with the specific version/sha recommended by the action's repo.
+        uses: lowlighter/metrics@v1
+        with:
+          # Repo Secrets -> METRICS_TOKEN olarak eklenmiş PAT veya token
           token: ${{ secrets.METRICS_TOKEN }}
-          
-          # Organizasyon ayarları
           user: mustafahallal
-          base: "" 
-          
-          # KRİTİK AYAR: Organizasyon bağlamını burada tanımlıyoruz
-          # "Unsupported context" hatasını bu satır çözer.
+          base: ""
           user_type: organization
-          
-          # Takvim eklentisi ayarları
-          plugin_isocalendar: yes
-          plugin_isocalendar_duration: full-year
-          
-          # Oluşturulacak dosyanın adı (README'deki linkle aynı olmalı)
+          plugin_isocalendar: 'true'
+          plugin_isocalendar_duration: 'full-year'
           filename: github-metrics.svg
+
+      - name: Success message
+        if: ${{ success() }}
+        run: echo "Metrics generated (github-metrics.svg)."

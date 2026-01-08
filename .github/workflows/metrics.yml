@@ -1,10 +1,13 @@
 name: Metrics
 on:
-  schedule: [{cron: "0 0 * * *"}] # Her gece güncelle
-  workflow_dispatch: # Manuel çalıştırma izni
+  schedule: [{cron: "0 0 * * *"}]
+  workflow_dispatch:
 jobs:
   github-metrics:
     runs-on: ubuntu-latest
+    # Buradaki izinler commit yapabilmesi için şarttır:
+    permissions:
+      contents: write
     steps:
       - uses: lowlighter/metrics@latest
         with:
@@ -14,3 +17,4 @@ jobs:
           base: ""
           plugin_isocalendar: yes
           plugin_isocalendar_duration: full-year
+          # Eğer dosya ismi belirtmezsen varsayılan 'github-metrics.svg' olur

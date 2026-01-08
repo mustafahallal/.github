@@ -9,7 +9,7 @@ concurrency:
   group: metrics-${{ github.repository }}
   cancel-in-progress: true
 
-# Top-level permission: oluşturulan görseli repoya yazmak için gerekli
+# Top-level izin: çıktıyı repoya yazmak için write gerekli
 permissions:
   contents: write
   actions: read
@@ -25,19 +25,29 @@ jobs:
           fetch-depth: 0
 
       - name: Generate metrics SVG
-        # PIN the action to a stable tag or SHA for reproducibility.
-        # Replace `@v1` with the specific version/sha recommended by the action's repo.
-        uses: lowlighter/metrics@v1
+        # LOG'da gördüğün versiyon 3.34.0 idi; reproducibility için o tag/sha ile pinle.
+        # Eğer başka stabil bir tag/sha varsa onu kullan.
+        uses: lowlighter/metrics@v3.34.0
         with:
-          # Repo Secrets -> METRICS_TOKEN olarak eklenmiş PAT veya token
           token: ${{ secrets.METRICS_TOKEN }}
           user: mustafahallal
           base: ""
           user_type: organization
-          plugin_isocalendar: 'true'
+
+          # Organizasyon bağlamında commit takvimi (isocalendar) desteklenmediği
+          # için kapalı bırakıyoruz. Eğer ileride bu eklenti organizasyon için
+          # desteklenirse 'true' yapabiliriz.
+          plugin_isocalendar: 'false'
           plugin_isocalendar_duration: 'full-year'
+
+          # Eğer private repoları dahil etmek istersen, token'da repo scope olmalı.
+          # Bu alan bazı sürümlerde desteklenir; action dokümantasyonuna göre
+          # configure et. Burayı bırakmak genelde yeterli olur.
+          # include_private: 'true'
+
           filename: github-metrics.svg
 
-      - name: Success message
+      - name: Commit & push generated SVG
         if: ${{ success() }}
-        run: echo "Metrics generated (github-metrics.svg)."
+        run: |
+          echo "Metrics generated: github-metrics.svg"

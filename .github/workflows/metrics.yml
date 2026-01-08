@@ -1,20 +1,33 @@
 name: Metrics
 on:
+  # Her gece yarısı otomatik güncelleme
   schedule: [{cron: "0 0 * * *"}]
+  # El ile (manuel) tetikleme izni
   workflow_dispatch:
 jobs:
   github-metrics:
     runs-on: ubuntu-latest
-    # Buradaki izinler commit yapabilmesi için şarttır:
+    # Bu kısım, oluşturulan görseli depoya geri yazabilmek için şarttır:
     permissions:
       contents: write
     steps:
-      - uses: lowlighter/metrics@latest
+      - name: 📊 Organizasyon Aktivite Grafiği Oluştur
+        uses: lowlighter/metrics@latest
         with:
+          # GitHub Secrets'a eklediğin token adı
           token: ${{ secrets.METRICS_TOKEN }}
+          
+          # Organizasyon ayarları
           user: mustafahallal
-          template: classic
-          base: ""
+          base: "" 
+          
+          # KRİTİK AYAR: Organizasyon bağlamını burada tanımlıyoruz
+          # "Unsupported context" hatasını bu satır çözer.
+          user_type: organization
+          
+          # Takvim eklentisi ayarları
           plugin_isocalendar: yes
           plugin_isocalendar_duration: full-year
-          # Eğer dosya ismi belirtmezsen varsayılan 'github-metrics.svg' olur
+          
+          # Oluşturulacak dosyanın adı (README'deki linkle aynı olmalı)
+          filename: github-metrics.svg

@@ -1,0 +1,35 @@
+name: Org Heatmap Generator
+on:
+  schedule:
+    - cron: "0 0 * * *" # Her gün gece yarısı çalışır
+  workflow_dispatch: # İstediğinde manuel çalıştırmak için
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Dosyayı kaydedebilmesi için şart
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Emacs
+        uses: purcell/setup-emacs@master
+        with:
+          version: '28.2'
+
+      - name: Generate Heatmap
+        env:
+          GITHUB_TOKEN: ${{ secrets.METRICS_TOKEN }}
+        run: |
+          # Emacs'ı batch modunda çalıştırıp heatmap'i üretiriz
+          emacs --batch --load org-heatmap.el --eval '(org-heatmap-generate "mustafahallal" "heatmap.org")'
+
+      - name: Commit and Push
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "action@github.com"
+          git add heatmap.org
+          git commit -m "Update contribution heatmap" || echo "No changes to commit"
+          git push

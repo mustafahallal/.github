@@ -17,10 +17,10 @@ jobs:
       - name: Setup Emacs
         uses: purcell/setup-emacs@master
         with:
-          version: '28.2'
+          version: '29.4' # GÜNCELLEME: ghub paketi için sürümü 29.4'e yükselttik
 
       - name: Install Emacs Dependencies
-        # Paket isimlerini 'emacsql', 'ghub' ve 'dash' olarak güncelledik
+        # Emacsql, ghub ve dash paketlerini kuruyoruz
         run: |
           emacs --batch \
             --eval "(require 'package)" \
@@ -35,7 +35,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.METRICS_TOKEN }}
         run: |
-          # org-heatmap.el dosyasının deponun ana dizininde olduğundan emin ol
+          # org-heatmap.el dosyasını çalıştır
           emacs --batch \
             --eval "(require 'package)" \
             --eval "(package-initialize)" \
@@ -47,5 +47,6 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "action@github.com"
           git add heatmap.org
+          # Commit hatası almamak için || echo ekledik
           git commit -m "Update contribution heatmap" || echo "No changes to commit"
           git push

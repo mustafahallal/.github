@@ -1,14 +1,14 @@
 name: Org Heatmap Generator
 on:
   schedule:
-    - cron: "0 0 * * *" # Her gün gece yarısı çalışır
-  workflow_dispatch: # İstediğinde manuel çalıştırmak için
+    - cron: "0 0 * * *"
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # Dosyayı kaydedebilmesi için şart
+      contents: write
     
     steps:
       - name: Checkout Repository
@@ -19,17 +19,33 @@ jobs:
         with:
           version: '28.2'
 
+      - name: Install Emacs Dependencies
+        # Emacs paket yöneticisini (MELPA) kurup gerekli kütüphaneleri yüklüyoruz
+        run: |
+          emacs --batch \
+            --eval "(require 'package)" \
+            --eval "(add-to-list 'package-archives '(\"melpa\" . \"https://melpa.org/packages/\") t)" \
+            --eval "(package-initialize)" \
+            --eval "(package-refresh-contents)" \
+            --eval "(package-install 'emacsql-sqlite)" \
+            --eval "(package-install 'ghub)"
+
       - name: Generate Heatmap
         env:
           GITHUB_TOKEN: ${{ secrets.METRICS_TOKEN }}
         run: |
-          # Emacs'ı batch modunda çalıştırıp heatmap'i üretiriz
-          emacs --batch --load org-heatmap.el --eval '(org-heatmap-generate "mustafahallal" "heatmap.org")'
+          # Önce bağımlılıkları yükle, sonra scripti çalıştır
+          emacs --batch \
+            --eval "(require 'package)" \
+            --eval "(package-initialize)" \
+            --load org-heatmap.el \
+            --eval "(org-heatmap-generate \"mustafahallal\" \"heatmap.org\")"
 
       - name: Commit and Push
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "action@github.com"
           git add heatmap.org
+          # Değişiklik varsa commit yap, yoksa hata verme
           git commit -m "Update contribution heatmap" || echo "No changes to commit"
           git push

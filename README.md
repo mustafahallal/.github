@@ -36,6 +36,7 @@ Bu bölüm, organizasyonun genel sağlığını ve aktifliğini gösterir.
 </p>
 
 ---
+![Katkı Takvimi](https://github.com/mustafahallal/.github/blob/main/github-metrics.svg)
 
 ### 🤝 Katkıda Bulunmak İster Misiniz?
 Organizasyonumuzdaki projelerin çoğu açık kaynaklıdır. 

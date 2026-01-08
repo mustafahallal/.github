@@ -20,21 +20,22 @@ jobs:
           version: '28.2'
 
       - name: Install Emacs Dependencies
-        # Emacs paket yöneticisini (MELPA) kurup gerekli kütüphaneleri yüklüyoruz
+        # Paket isimlerini 'emacsql', 'ghub' ve 'dash' olarak güncelledik
         run: |
           emacs --batch \
             --eval "(require 'package)" \
             --eval "(add-to-list 'package-archives '(\"melpa\" . \"https://melpa.org/packages/\") t)" \
             --eval "(package-initialize)" \
             --eval "(package-refresh-contents)" \
-            --eval "(package-install 'emacsql-sqlite)" \
-            --eval "(package-install 'ghub)"
+            --eval "(package-install 'emacsql)" \
+            --eval "(package-install 'ghub)" \
+            --eval "(package-install 'dash)"
 
       - name: Generate Heatmap
         env:
           GITHUB_TOKEN: ${{ secrets.METRICS_TOKEN }}
         run: |
-          # Önce bağımlılıkları yükle, sonra scripti çalıştır
+          # org-heatmap.el dosyasının deponun ana dizininde olduğundan emin ol
           emacs --batch \
             --eval "(require 'package)" \
             --eval "(package-initialize)" \
@@ -46,6 +47,5 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "action@github.com"
           git add heatmap.org
-          # Değişiklik varsa commit yap, yoksa hata verme
           git commit -m "Update contribution heatmap" || echo "No changes to commit"
           git push
